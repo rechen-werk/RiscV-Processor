@@ -695,7 +695,9 @@ entity alu is
   port(a, b:       in     STD_LOGIC_VECTOR(31 downto 0);
        ALUControl: in     STD_LOGIC_VECTOR(2  downto 0);
        ALUResult:  out    STD_LOGIC_VECTOR(31 downto 0);
-       Zero:       out    STD_LOGIC);
+       Zero:       out    STD_LOGIC
+       Negative:   out    STD_LOGIC --CHANGE: Adi
+       );
 end;
 
 architecture behave of alu is
@@ -713,10 +715,13 @@ begin
       when "010" =>  ALUResult_s <= a and b;
       when "011" =>  ALUResult_s <= a or b;         
       when "101" =>  ALUResult_s <= (0 => sum(31), others => '0');
+      when "110" =>  ALUResult_s <= b;  --CHANGE: Adi
+      when "100" =>  ALUResult_s <= a srl b; --CHANGE: Adi
       when others => ALUResult_s <= (others => 'X');
     end case;
   end process;
   Zero <= '1' when ALUResult_s = X"00000000" else '0';
+  Negative <= ALUResult_s(31)  --CHANGE: Adi
   ALUResult <= ALUResult_s;
 end;
 
