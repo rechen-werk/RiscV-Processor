@@ -227,9 +227,9 @@ begin
   process(op) begin
     case op is
       when "0000011" => controls <= "100010010000-"; -- lw
-      when "0100011" => controls <= "000111000000-"; -- sw
+      when "0100011" => controls <= "000111--0000-"; -- sw
       when "0110011" => controls <= "1---00000100-"; -- R-type
-      when "1100011" => controls <= "001000--10101"; -- beq, blt -- added 2 dontcares which were 00 maybe mistake??
+      when "1100011" => controls <= "001000--10101"; -- beq, blt 
       when "0010011" => controls <= "100010000100-"; -- I-type ALU
       when "1101111" => controls <= "1011001000011"; -- jal
       when "0110111" => controls <= "110010000110-"; -- lui
@@ -347,8 +347,8 @@ begin
   -- next PC logic
   pcreg: flopr generic map(32) port map(clk, reset, PCNext, PC_s);
   pcadd4: adder port map(PC_s, X"00000004", PCPlus4);
-  srcimmmux: mux2 generic map(32) port map(SrcA, ImmExt, PCTargetSrc, PrePCTarget);
-  pcaddbranch: adder port map(PC_s, PrePCTarget, PCTarget);
+  srcpcmux: mux2 generic map(32) port map(SrcA, PC_s, PCTargetSrc, PrePCTarget);
+  pcaddbranch: adder port map(PrePCTarget, ImmExt, PCTarget);
   pcmux: mux2 generic map(32) port map(PCPlus4, PCTarget, PCSrc, PCNext);
 
   PC <= PC_s;
@@ -447,7 +447,7 @@ begin
         immext <= (31 downto 20 => instr(31)) & instr(19 downto 12) & instr(20) & instr(30 downto 21) & '0';
       -- U-type
       when "100" =>
-        immext <= instr(31 downto 12) & "000000000000";
+        immext <= instr(31 downto 12) & (11 downto 0 => '0');
       when others =>
         immext <= (31 downto 0 => '-');
     end case;
@@ -643,8 +643,8 @@ architecture behave of imem is
 
   -- initialize memory from file
   impure function init_ram_hex return ramtype is
-    file text_file : text open read_mode is "test.txt";
-    -- file text_file : text open read_mode is "average.txt";
+    file text_file : text open read_mode is "average.txt";
+    --file text_file : text open read_mode is "average.txt";
     variable text_line : line;
     variable ram_content : ramtype := (others => (others => '0'));
     variable i : integer := 0;
@@ -733,7 +733,7 @@ begin
       when "011" =>  ALUResult_s <= a or b;         
       when "101" =>  ALUResult_s <= (0 => sum(31), others => '0');
       when "110" =>  ALUResult_s <= b;
-      when "100" =>  ALUResult_s <= STD_LOGIC_VECTOR(signed(a) srl to_integer(unsigned(b(4 downto 0)))); --i guess i can do it like that
+      when "100" =>  ALUResult_s <= STD_LOGIC_VECTOR(signed(a) srl to_integer(unsigned(b(4 downto 0)))); --
       when others => ALUResult_s <= (others => 'X');
     end case;
   end process;
@@ -741,5 +741,3 @@ begin
   Negative <= ALUResult_s(31);
   ALUResult <= ALUResult_s;
 end;
-
-
