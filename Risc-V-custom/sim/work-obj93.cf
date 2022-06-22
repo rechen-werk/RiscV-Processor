@@ -1,0 +1,37 @@
+v 4
+file "/home/rechenwerk/2022S/Rechnerarchitektur/UE/Projekt/Risc-V-custom/" "riscvsingle.vhdl" "04442f03e91f45f27b7f5d0eaf28db150fb45a1a" "20220622073443.129":
+  package checkresultpkg at 93( 3086) + 0 on 1551;
+  entity riscvsingle at 106( 3506) + 0 on 1552;
+  architecture struct of riscvsingle at 118( 3956) + 0 on 1553;
+  entity controller at 163( 6061) + 0 on 1554;
+  architecture struct of controller at 180( 6717) + 0 on 1555;
+  entity maindec at 211( 7844) + 0 on 1556;
+  architecture behave of maindec at 225( 8317) + 0 on 1557;
+  entity aludec at 247( 9256) + 0 on 1558;
+  architecture behave of aludec at 258( 9574) + 0 on 1559;
+  entity datapath at 287( 11037) + 0 on 1560;
+  architecture struct of datapath at 306( 11860) + 0 on 1561;
+  entity regfile at 378( 14908) + 0 on 1562;
+  architecture behave of regfile at 391( 15290) + 0 on 1563;
+  entity adder at 421( 16200) + 0 on 1564;
+  architecture behave of adder at 430( 16398) + 0 on 1565;
+  entity extend at 435( 16490) + 0 on 1566;
+  architecture behave of extend at 444( 16721) + 0 on 1567;
+  entity flopr at 469( 17550) + 0 on 1568;
+  architecture asynchronous of flopr at 480( 17862) + 0 on 1569;
+  entity flopenr at 489( 18061) + 0 on 1570;
+  architecture asynchronous of flopenr at 500( 18398) + 0 on 1571;
+  entity mux2 at 509( 18625) + 0 on 1572;
+  architecture behave of mux2 at 519( 18887) + 0 on 1573;
+  entity mux3 at 524( 18960) + 0 on 1574;
+  architecture behave of mux3 at 534( 19255) + 0 on 1575;
+  entity testbench at 544( 19461) + 0 on 1576;
+  architecture test of testbench at 552( 19606) + 0 on 1577;
+  entity top at 598( 21500) + 0 on 1578;
+  architecture test of top at 608( 21778) + 0 on 1579;
+  entity imem at 643( 23055) + 0 on 1580;
+  architecture behave of imem at 654( 23312) + 0 on 1581;
+  entity dmem at 682( 24086) + 0 on 1582;
+  architecture behave of dmem at 694( 24375) + 0 on 1583;
+  entity alu at 720( 25045) + 0 on 1584;
+  architecture behave of alu at 732( 25381) + 0 on 1585;
